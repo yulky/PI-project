@@ -1,6 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import postRouter from './routes/postRouter.js';
+import router from './routes/router.js';
 import dotenv from 'dotenv';
 
 dotenv.config();  // Загрузка переменных окружения из .env файла
@@ -11,7 +11,7 @@ const MONGO_URL = process.env.MONGO_URI;
 const app = express()
 
 app.use(express.json()) // регестрируем парсер json
-app.use('/api', postRouter)
+app.use('/api', router)
 
 async function startApp() {
     try {
