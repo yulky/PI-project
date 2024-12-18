@@ -1,4 +1,4 @@
- const mongoose = require('mongoose');
+import mongoose from "mongoose";
  
  const ArtistShow = new mongoose.Schema ({
   showId: { type: mongoose.Schema.Types.ObjectId, ref: 'Show', required: true },

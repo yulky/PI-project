@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const Show = new mongoose.Schema({
   title: { type: String, required: true },

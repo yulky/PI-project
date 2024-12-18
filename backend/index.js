@@ -25,4 +25,25 @@ async function startApp() {
     }
 }
 
+import Artist from './models/Artist.js';  // Импорт вашей модели
+
+async function createMultipleObjects() {
+  try {
+    // Данные для нескольких постов
+    const objects = [
+      { FIO: 'Басков', nikname: ''},
+      { FIO: 'Артём Геннадьевич Никитин', nikname: 'MAYOT' }
+    ];
+
+    // Вставка нескольких документов
+    const savedObjects = await Artist.insertMany(objects);
+    console.log('Objects successfully created:', savedObjects);
+  } catch (error) {
+    console.error('Error creating objects:', error);
+  }
+}
+
+// Вызов функции для добавления нескольких постов
+// createMultipleObjects();
+
 startApp();
