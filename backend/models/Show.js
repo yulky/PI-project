@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
-const showSchema = new mongoose.Schema({
+const Show = new mongoose.Schema({
   title: { type: String, required: true },
+  date: { type: Date},
+  time: { type: String},
   description: { type: String },
-  date: { type: Date, required: true },
-  time: { type: String, required: true },
+  categoryId: {type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true},
   availableTickets: { type: Number, required: true },
+  pice: {type: Number}
 });
 
-module.exports = mongoose.model('Show', showSchema);
+export default mongoose.model('Show', Show);
