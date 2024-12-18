@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import router from './routes/router.js';
 import dotenv from 'dotenv';
+import createMultipleObjects from './functions/CreateObjects.js';
 
 dotenv.config();  // Загрузка переменных окружения из .env файла
 
@@ -25,25 +26,17 @@ async function startApp() {
     }
 }
 
-import Artist from './models/Artist.js';  // Импорт вашей модели
+// import Category from './models/Category.js';
 
-async function createMultipleObjects() {
-  try {
-    // Данные для нескольких постов
-    const objects = [
-      { FIO: 'Басков', nikname: ''},
-      { FIO: 'Артём Геннадьевич Никитин', nikname: 'MAYOT' }
-    ];
+// createMultipleObjects({
+//     objects: [
+//         {
+//             name: "Стендап",
+//             description: "Выступление комиков",
+//         }
+//     ],
+//     model: Category
+// });
 
-    // Вставка нескольких документов
-    const savedObjects = await Artist.insertMany(objects);
-    console.log('Objects successfully created:', savedObjects);
-  } catch (error) {
-    console.error('Error creating objects:', error);
-  }
-}
-
-// Вызов функции для добавления нескольких постов
-// createMultipleObjects();
 
 startApp();
