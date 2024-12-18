@@ -2,7 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import router from './routes/router.js';
 import dotenv from 'dotenv';
-
+// import User from './models/User.js'
+import Category from './models/Category.js';
 dotenv.config();  // Загрузка переменных окружения из .env файла
 
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,10 @@ const app = express()
 
 app.use(express.json()) // регестрируем парсер json
 app.use('/api', router)
+
+
+
+
 
 async function startApp() {
     try {
