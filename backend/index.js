@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 import router from './routes/router.js';
 import dotenv from 'dotenv';
 import createMultipleObjects from './functions/CreateObjects.js';
-
 dotenv.config();  // Загрузка переменных окружения из .env файла
 
 const PORT = process.env.PORT || 5000;
