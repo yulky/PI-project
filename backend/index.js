@@ -20,11 +20,11 @@ createMultipleObjects({
     objects:[
         {
         showId: '6762a78d2fe1b63f0fa65202',
-        userID: '6762a546f64e318f67d7c752',
+        userId: '67629150237e9884ada54743',
     },
     {
         showId: '6762a78d2fe1b63f0fa65203',
-        userID: '6762a546f64e318f67d7c751',
+        userId: '6762a546f64e318f67d7c751',
     }
 ],
 model: Booking
