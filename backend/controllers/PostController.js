@@ -1,13 +1,13 @@
 import Post from "../models/Post.js";
+import PostService from "../services/PostService.js";
 
 class PostController {
     async create (req, res) {
         try {
-            const { author, title, content, picture } = req.body;
-            const post = await Post.create({ author, title, content, picture });
-            res.status(200).json(post);  // Отправляем созданный пост в ответ
+            const post = await PostService.create(req.body)
+            res.status(200).json(post);
         } catch (e) {
-            console.error(e);  // Логирование ошибки
+            console.error(e);
             res.status(500).json({ message: 'Error creating post', error: e.message });
         }
     }
@@ -21,12 +21,8 @@ class PostController {
     }
     async getOne(req, res) {
         try {
-            const {id} = req.params
-            if (!id) {
-                req.status(400).json({message:'Id не указан.'})
-            }
-            const post = await Post.findById(id);
-            return res.json(post)
+            const post = await PostService.getOne(req.params.id);
+            return res.json(post);
         } catch (e) {
             res.status(500).json(e)
         }
