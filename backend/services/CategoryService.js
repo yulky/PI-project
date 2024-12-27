@@ -1,12 +1,12 @@
-import Show from "../models/Show.js";
+import showRepository from '../repositories/showRepository.js';
 
 class CategoryService {
-    async getAllShowsOnCategory(category_id) {
-        if (!category_id) {
+    async getAllShowsOnCategory(categoryId) {
+        if (!categoryId) {
             throw new Error('Id не указан.');
         }
         try {
-            const shows = await Show.find({ categoryId: category_id });
+            const shows = await showRepository.getAllShowsByCategory(categoryId);
             if (shows.length === 0) {
                 throw new Error('Таких шоу нет');
             }
@@ -17,4 +17,4 @@ class CategoryService {
     }
 }
 
-export default new CategoryService;
+export default new CategoryService();

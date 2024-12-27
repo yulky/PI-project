@@ -10,7 +10,6 @@ class ShowController {
             res.status(500).json({ message: 'Error creating post', error: e.message });
         }
     } 
-
     async getAll(req, res) {
         try {
             const posts = await Show.find();
@@ -19,7 +18,6 @@ class ShowController {
             res.status(500).json(e)
         }
     }
-
     async getOne(req, res) {
         try {
             const post = await ShowService.getOne(req.params.id);
@@ -28,7 +26,6 @@ class ShowController {
             res.status(500).json(e)
         }
     }
-    
     async delete(req, res) {
         try {
             const {id} = req.params
@@ -41,7 +38,14 @@ class ShowController {
             res.status(500).json(e)
         }
     }
-    
+    async getShowCategory(req, res) {
+        try {
+            const category_name = await ShowService.getShowCategory(req.params.id);
+            return res.json(category_name);
+        } catch (e) {
+            res.status(500).json('Ошибка получения имени категори')
+        }
+    }
 }
 
 

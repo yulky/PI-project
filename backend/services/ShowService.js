@@ -1,16 +1,31 @@
-import Show from '../models/Show.js'
+import showRepository from '../repositories/showRepository.js';
 
-class ShowService{
-    async create (show) {
-        const createdShow = await Show.create(show);
+class ShowService {
+    async create(show) {
+        const createdShow = await showRepository.create(show);
         return createdShow;
     }
-    async getOne(id){
-        if (!id) {
-            throw new Error('Id не указан.')
+
+    async getOne(id) {
+        const show = await showRepository.getOne(id);
+        if (!show) {
+            throw new Error('Шоу не найдено.');
         }
-        const post = await Show.findById(id);
-        return post;
+        return show;
+    }
+
+    async getShowCategory(showId) {
+        try {
+            const show = await showRepository.getShowCategory(showId);
+            if (!show) {
+                throw new Error('Шоу не найдено.');
+            }
+            return show.categoryId.name; // Return the category name
+        } catch (error) {
+            console.error(`Ошибка получения для showId: ${showId}. Error message: ${error.message}`);
+            throw error;
+        }
     }
 }
-export default new ShowService;
+
+export default new ShowService();

@@ -5,21 +5,16 @@ import BookingsController from '../controllers/BookingsController.js';
 import CategoryController from '../controllers/CategoryController.js';
 
 const router = new Router()
-/* Посты */
-router.post('/posts', PostController.create)
-router.get('/posts', PostController.getAll)
-router.get('/posts/:id', PostController.getOne)
-router.put('/posts', PostController.update)
-router.delete('/posts/:id', PostController.delete)
 
-/* Шоу маст гоу он */
+/* Шоу */
 router.post('/show', ShowController.create)
 router.get('/show', ShowController.getAll)
 router.get('/show/:id', ShowController.getOne)
-// router.put('/show', ShowController.update)
-router.delete('/show/:id', PostController.delete)
+router.delete('/show/:id', ShowController.delete)
+router.get('/show_category/:id', ShowController.getShowCategory)
 
 // Заказы
+// создать и убавить кол-во заказов
 router.post('/bookings', BookingsController.create)
 router.delete('/bookings/:id', BookingsController.delete)
 
