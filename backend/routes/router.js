@@ -1,7 +1,7 @@
 import Router from 'express'
 import PostController from '../controllers/PostController.js';
 import ShowController from '../controllers/ShowController.js';
-import Show from '../models/Show.js';
+import BookingsController from '../controllers/BookingsController.js';
 
 const router = new Router()
 /* Посты */
@@ -17,5 +17,9 @@ router.get('/show', ShowController.getAll)
 router.get('/show/:id', ShowController.getOne)
 // router.put('/show', ShowController.update)
 router.delete('/show/:id', PostController.delete)
+
+// Bookings
+router.post('/bookings', BookingsController.create)
+router.delete('/bookings/:id', BookingsController.delete)
 
 export default router;
