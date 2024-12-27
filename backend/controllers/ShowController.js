@@ -1,4 +1,5 @@
 import Show from '../models/Show.js'
+import ShowService from '../services/ShowService.js'
 class ShowController {
     async create (req, res) {
         try {
@@ -21,7 +22,7 @@ class ShowController {
 
     async getOne(req, res) {
         try {
-            const post = await PostService.getOne(req.params.id);
+            const post = await ShowService.getOne(req.params.id);
             return res.json(post);
         } catch (e) {
             res.status(500).json(e)
