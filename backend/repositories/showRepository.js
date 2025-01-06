@@ -19,6 +19,9 @@ class ShowRepository {
     async getAllShowsByCategory(categoryId) {
         return Show.find({ categoryId });
     }
+    async save(show) {
+        return await show.save();
+    }
 }
 
 export default new ShowRepository();

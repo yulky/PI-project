@@ -1,7 +1,7 @@
 import Router from 'express'
 import PostController from '../controllers/PostController.js';
 import ShowController from '../controllers/ShowController.js';
-import BookingsController from '../controllers/BookingsController.js';
+import BookingController from '../controllers/BookingController.js';
 import CategoryController from '../controllers/CategoryController.js';
 
 
@@ -16,8 +16,8 @@ router.get('/show_category/:id', ShowController.getShowCategory)
 
 // Заказы
 // создать и убавить кол-во заказов
-router.post('/bookings', BookingsController.create)
-router.delete('/bookings/:id', BookingsController.delete)
+router.post('/bookings', BookingController.create)
+router.delete('/bookings/:id', BookingController.delete)
 
 // Получить все шоу категории
 router.get('/category_shows/:id', CategoryController.getAllShowsOnCategory);
