@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();  // Загрузка переменных окружения из .env файла
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URL = process.env.MONGO_URI;
+const MONGO_URL = process.env.MONGO_URL;
 
 const app = express()
 

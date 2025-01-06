@@ -1,4 +1,4 @@
-import Post from "../models/Post.js";
+import Post from "../models/old models/Post.js";
 
 class PostService {
     async create (post) {

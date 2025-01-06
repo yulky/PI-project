@@ -1,4 +1,4 @@
-import Post from "../models/Post.js";
+import Post from "../models/old models/Post.js";
 import PostService from "../services/PostService.js";
 
 class PostController {

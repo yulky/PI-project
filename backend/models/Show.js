@@ -1,13 +1,16 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import Category from '../models/Category.js';
 
-const Show = new mongoose.Schema({
+const ShowSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  date: { type: Date},
-  time: { type: String},
+  date: { type: Date },
+  time: { type: String },
   description: { type: String },
-  categoryId: {type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true},
+  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
   availableTickets: { type: Number, required: true },
-  pice: {type: Number}
+  price: { type: Number },
 });
 
-export default mongoose.model('Show', Show);
+const Show = mongoose.model('Show', ShowSchema);
+
+export default Show;
