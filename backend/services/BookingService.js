@@ -1,27 +1,42 @@
+import mongoose from "mongoose";
 import BookingRepository from "../repositories/BookingRepository.js";
-import ShowRepository from "../repositories/ShowRepository.js";
+import ShowRepository from "../repositories/showRepository.js";
 
 class BookingService {
     async create(booking) {
-        const createdBooking = await BookingRepository.create(booking);
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        try {
+            const show = await ShowRepository.getOne(booking.showId, session);
+            if (!show) {
+                throw new Error('Show not found.');
+            }
+            // Проверяем доступность билетов
+            if (show.availableTickets <= 0) {
+                throw new Error('No available tickets.');
+            }
+            // Уменьшаем количество доступных билетов
+            const oldAvailableTickets = show.availableTickets;
+            show.availableTickets -= 1;
+            
+            await ShowRepository.save(show, session);
+            
+            const createdBooking = await BookingRepository.create(booking, session);
+            
+            await session.commitTransaction();
+            session.endSession();
 
-        // Уменьшаем количество доступных билетов на 1
-        const show = await ShowRepository.getOne(booking.showId);
-        if (!show) {
-            throw new Error('Show not found.');
+            return {
+                booking: createdBooking,
+                availableTickets: show.availableTickets,
+                oldAvailableTickets: oldAvailableTickets,
+            };
+        } catch (error) {
+            // Откатываем транзакцию в случае ошибки
+            await session.abortTransaction();
+            session.endSession();
+            throw error;
         }
-        if (show.availableTickets <= 0) {
-            throw new Error('No available tickets.');
-        }
-        const oldAvailableTickets = show.availableTickets;
-        show.availableTickets -= 1;
-        await ShowRepository.save(show);
-
-        return {
-            booking: createdBooking,
-            availableTickets: show.availableTickets,
-            oldAvailableTickets: oldAvailableTickets,
-        };
     }
     async delete(id) {
         if (!id) {

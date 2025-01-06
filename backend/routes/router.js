@@ -22,7 +22,4 @@ router.delete('/bookings/:id', BookingController.delete)
 // Получить все шоу категории
 router.get('/category_shows/:id', CategoryController.getAllShowsOnCategory);
 
-
-router.get('/show', ShowController.getAll)
-
 export default router;
