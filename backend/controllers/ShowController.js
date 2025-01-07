@@ -32,7 +32,7 @@ class ShowController {
             if (!id) {
                 res.status(400).json({message: 'Id не указан.'})
             }
-            const post = await ShowService.deleteById(Show, id)
+            const post = await ShowService.deleteById(id)
             return res.json(post)
         } catch (e) {
             res.status(500).json(e)

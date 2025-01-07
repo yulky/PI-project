@@ -45,7 +45,7 @@ class ShowService {
             return deletedShow;
           } catch (error) {
             console.error('Ошибка в deleteById (сервис):', error.message);
-            throw new Error('Не удалось удалить шоу.');
+            throw new Error('Шоу с таким id не найдено.');
         }
     }
 }
