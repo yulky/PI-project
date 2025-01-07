@@ -3,7 +3,7 @@ import ShowService from '../services/ShowService.js'
 class ShowController {
     async create (req, res) {
         try {
-            const post = await PostService.create(req.body)
+            const post = await ShowService.create(req.body)
             res.status(200).json(post);
         } catch (e) {
             console.error(e);
@@ -12,7 +12,7 @@ class ShowController {
     } 
     async getAll(req, res) {
         try {
-            const posts = await Show.find();
+            const posts = await ShowService.findAll(Show);
             return res.json(posts);
         } catch (e) {
             res.status(500).json(e)
@@ -32,12 +32,13 @@ class ShowController {
             if (!id) {
                 res.status(400).json({message: 'Id не указан.'})
             }
-            const post = await Post.findByIdAndDelete(id);
+            const post = await ShowService.deleteById(Show, id)
             return res.json(post)
         } catch (e) {
             res.status(500).json(e)
         }
     }
+
     async getShowCategory(req, res) {
         try {
             const category_name = await ShowService.getShowCategory(req.params.id);

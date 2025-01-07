@@ -5,6 +5,15 @@ class ShowRepository {
         const createdShow = await Show.create(showData);
         return createdShow;
     }
+
+    async findAll() {
+        try {
+          return await Show.find();
+        } catch (error) {
+          console.error('Ошибка в findAll:', error.message);
+          throw new Error('Не удалось получить шоу.');
+        }
+      }
     async getOne(id) {
         if (!id) {
             throw new Error('Id не указан.');
@@ -22,6 +31,16 @@ class ShowRepository {
     async save(show) {
         return await show.save();
     }
+
+    async deleteById(id) {
+        try {
+          return await Show.findByIdAndDelete(id);
+        } catch (error) {
+          console.error('Ошибка в deleteById:', error.message);
+          throw new Error('Не удалось удалить шоу.');
+        }
+    }
+    
 }
 
 export default new ShowRepository();
