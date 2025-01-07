@@ -8,7 +8,7 @@ class CategoryService {
         try {
             const shows = await showRepository.getAllShowsByCategory(categoryId);
             if (shows.length === 0) {
-                throw new Error('Таких шоу нет');
+                throw new Error('Таких шоу нет.');
             }
             return shows;
         } catch (e) {

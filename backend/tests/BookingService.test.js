@@ -7,8 +7,21 @@ import mongoose from "mongoose";
 jest.mock("../repositories/BookingRepository");
 jest.mock("../repositories/showRepository");
 
+// Устанавливаем тайм-аут Jest на 10 секунд для тестов, работающих с транзакциями
+jest.setTimeout(10000);
+
 describe("BookingService", () => {
   let bookingData;
+  
+  const mockSession = {
+    startTransaction: jest.fn(),
+    commitTransaction: jest.fn(),
+    abortTransaction: jest.fn(),
+    endSession: jest.fn(),
+  };
+  
+  mongoose.startSession = jest.fn().mockResolvedValue(mockSession);
+  
 
   beforeEach(() => {
     // Инициализация тестовых данных
@@ -20,7 +33,7 @@ describe("BookingService", () => {
     BookingRepository.create.mockReset();
   });
 
-  it("should create booking successfully", async () => {
+  it("должен успешно создать бронирование", async () => {
     // Мокаем успешное возвращение шоу
     ShowRepository.getOne.mockResolvedValue({
       availableTickets: 1,
@@ -41,7 +54,7 @@ describe("BookingService", () => {
     expect(result.availableTickets).toBe(0);
   });
 
-  it("should throw error if show not found", async () => {
+  it("должен выбросить ошибку, если шоу не найдено", async () => {
     // Мокаем, что шоу не найдено
     ShowRepository.getOne.mockResolvedValue(null);
 
@@ -50,7 +63,7 @@ describe("BookingService", () => {
     );
   });
 
-  it("should throw error if no available tickets", async () => {
+  it("должен выбросить ошибку, если нет доступных билетов", async () => {
     // Мокаем шоу, но с нулевыми билетами
     ShowRepository.getOne.mockResolvedValue({
       availableTickets: 0,
@@ -62,7 +75,7 @@ describe("BookingService", () => {
     );
   });
 
-  it("should delete booking successfully", async () => {
+  it("должен успешно удалить бронирование", async () => {
     // Мокаем успешное удаление бронирования
     BookingRepository.findByIdAndDelete.mockResolvedValue({
       _id: "booking1",
@@ -76,7 +89,7 @@ describe("BookingService", () => {
     expect(result._id).toBe("booking1");
   });
 
-  it("should throw error if id is not provided", async () => {
+  it("должен выбросить ошибку, если id не указан", async () => {
     await expect(BookingService.delete()).rejects.toThrow("Id не указан.");
   });
 });

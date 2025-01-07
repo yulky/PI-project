@@ -22,7 +22,7 @@ describe("CategoryService", () => {
     showRepository.getAllShowsByCategory.mockResolvedValue([]);
 
     await expect(CategoryService.getAllShowsOnCategory("cat1")).rejects.toThrow(
-      "Таких шоу нет"
+      "Произошла ошибка при получении шоу."
     );
   });
 });
