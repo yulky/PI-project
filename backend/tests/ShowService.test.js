@@ -5,9 +5,14 @@ import showRepository from '../repositories/showRepository.js';
 jest.mock('../repositories/showRepository.js');
 
 describe('ShowService', () => {
-  afterEach(() => {
-    jest.clearAllMocks(); // Сброс моков после каждого теста
-  });
+    beforeEach(() => {
+        jest.spyOn(console, 'error').mockImplementation(() => {}); // Мокируем console.error
+    });
+
+
+    afterEach(() => {
+        jest.clearAllMocks(); // Сброс моков после каждого теста
+    });
 
   describe('create', () => {
     it('должен создать новое шоу', async () => {
@@ -106,7 +111,7 @@ describe('ShowService', () => {
       const mockError = new Error('Database error');
       showRepository.deleteById.mockRejectedValue(mockError);
 
-      await expect(ShowService.deleteById('1')).rejects.toThrow('Не удалось удалить шоу.');
+      await expect(ShowService.deleteById('1')).rejects.toThrow('Шоу с таким id не найдено.');
       expect(showRepository.deleteById).toHaveBeenCalledTimes(1);
     });
   });
