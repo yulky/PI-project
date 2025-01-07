@@ -6,9 +6,7 @@ class ShowService {
         return createdShow;
     }
 
-    async findAll(show){
-        // const allShows = await show.find()
-        // return allShows
+    async findAll(){
         try {
             return await showRepository.findAll();
           } catch (error) {
@@ -39,11 +37,6 @@ class ShowService {
     }
 
     async deleteById(id){
-        // if (!id) {
-        //     throw new Error('Id не указан.');
-        // }
-        // const deleteshow = Show.findByIdAndDelete(id);
-        // return deleteshow
         try {
             const deletedShow = await showRepository.deleteById(id);
             if (!deletedShow) {
