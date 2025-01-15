@@ -3,6 +3,7 @@ import showRepository from '../repositories/showRepository.js';
 class ShowService {
     async create(show) {
         const createdShow = await showRepository.create(show);
+        eventEmitter.emit('Show Created', createdShow); // Уведомление о создании шоу
         return createdShow;
     }
 
@@ -42,6 +43,7 @@ class ShowService {
             if (!deletedShow) {
               throw new Error('Шоу с таким id не найдено.');
             }
+            eventEmitter.emit('Show Deleted', id); // Уведомление об удалении шоу
             return deletedShow;
           } catch (error) {
             console.error('Ошибка в deleteById (сервис):', error.message);
