@@ -24,4 +24,20 @@ async function startApp() {
     }
 }
 
+import './utils/eventHandler.js';
+import showService from './services/ShowService.js';
+
+(async () => {
+    // await showService.create({
+    //   title: 'Test Show',
+    //   date: '2025-04-02T19:00:00.000+00:00',
+    //   time: "19:00",
+    //   description: "Описание",
+    //   categoryId: "6762a64f03d6b9d2f687e55d",
+    //   availableTickets: 150,
+    //   price: 500,
+    // });
+    // await showService.deleteById('6787b45177b6f275c6d8a446');
+})();
+
 startApp();
