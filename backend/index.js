@@ -8,6 +8,23 @@ dotenv.config();  // Загрузка переменных окружения и
 const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 
+import ServerConfig from './utils/ServerConfig.js'
+
+// Базовая конфигурация
+const defaultConfig = new ServerConfig({ host: 'localhost', port: 8080, secure: false });
+defaultConfig.showConfig();
+
+// Создаем прототипы с изменениями
+const secureConfig = defaultConfig.clone();
+secureConfig.secure = true;
+secureConfig.port = 8443;
+secureConfig.showConfig();
+
+const customConfig = defaultConfig.clone();
+customConfig.host = 'customhost.com';
+customConfig.showConfig();
+
+
 const app = express()
 
 app.use(express.json()) // регестрируем парсер json
