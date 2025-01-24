@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "5000:5000"
+    depends_on:
+      - show-service
+      - booking-service
+      - category-service
+    environment:
+      - SHOW_SERVICE_URL=http://show-service:5001
+      - BOOKING_SERVICE_URL=http://booking-service:5002
+      - CATEGORY_SERVICE_URL=http://category-service:5003
+
+  show-service:
+    build: ./show-service
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - MONGO_URL=mongodb://mongo:27017/showdb
+    depends_on:
+      - mongo
+
+  booking-service:
+    build: ./booking-service
+    ports:
+      - "5002:5002"
+    environment:
+      - PORT=5002
+      - MONGO_URL=mongodb://mongo:27017/bookingdb
+    depends_on:
+      - mongo
+
+  category-service:
+    build: ./category-service
+    ports:
+      - "5003:5003"
+    environment:
+      - PORT=5003
+      - MONGO_URL=mongodb://mongo:27017/categorydb
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
